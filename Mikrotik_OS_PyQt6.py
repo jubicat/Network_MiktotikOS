@@ -8,10 +8,10 @@ from PyQt6.QtWidgets import (
 
 CREDS = {
     "device_type": "mikrotik_routeros",
-    "ip": "192.168.37.2",
+    "ip": "192.168.37.3",
     "username": "admin",
     "password": "admin",
-    "port": "28",
+    "port": "22",
 }
 
 class MikrotikSimulator(QMainWindow):
@@ -143,8 +143,8 @@ class MikrotikSimulator(QMainWindow):
         if self.connection is not None:
             self.clean_output()
             text, ok1 = QInputDialog.getText(self, "Enter IP", "IP Address")
-            interface, ok2 = QInputDialog.getText(self, "Enter Interface", "Interface (ether1, ether2, ether3)")
-            if ok1 and ok2 and interface.lower() in ['ether1', 'ether2', 'ether3']:
+            interface, ok2 = QInputDialog.getText(self, "Enter Interface", "Interface (ether4, ether2, ether3)")
+            if ok1 and ok2 and interface.lower() in ['ether4', 'ether2', 'ether3']:
                 self.ip_input.setText(text)
                 output = self.connection.send_command(f"ip address set [find interface={interface}] address={text}", cmd_verify=False)
                 self.output_text.append(output)
@@ -152,35 +152,35 @@ class MikrotikSimulator(QMainWindow):
                 self.output_text.append('Enter IP and Interface correctly')
             elif not text:
                 self.output_text.append('Enter IP correctly')
-            elif interface.lower() not in ['ether1', 'ether2', 'ether3']:
+            elif interface.lower() not in ['ether4', 'ether2', 'ether3']:
                 self.output_text.append('Enter Interface correctly')
     def add_ip(self):
         if self.connection is not None:
             self.clean_output()
             text, ok1 = QInputDialog.getText(self, "Enter IP", "IP Address")
-            interface, ok2 = QInputDialog.getText(self, "Enter Interface", "Interface (ether1, ether2, ether3)")
+            interface, ok2 = QInputDialog.getText(self, "Enter Interface", "Interface (ether4, ether2, ether3)")
 
-            if ok1 and ok2 and interface.lower() in ['ether1', 'ether2', 'ether3']:
+            if ok1 and ok2 and interface.lower() in ['ether4', 'ether2', 'ether3']:
                 output = self.connection.send_command(f"ip address add address={text} interface={interface}", cmd_verify=False)
                 self.output_text.append(output)
             elif not ok1 or not ok2:
                 self.output_text.append('Enter IP and Interface correctly')
             elif not text:
                 self.output_text.append('Enter IP correctly')
-            elif interface.lower() not in ['ether1', 'ether2', 'ether3']:
+            elif interface.lower() not in ['ether4', 'ether2', 'ether3']:
                 self.output_text.append('Enter Interface correctly')
     def remove_ip(self):
         if self.connection is not None:
             self.clean_output()
-            interface, ok = QInputDialog.getText(self, "Enter Interface", "Interface (ether1, ether2, ether3)")
+            interface, ok = QInputDialog.getText(self, "Enter Interface", "Interface (ether4, ether2, ether3)")
 
-            if ok and interface.lower() in ['ether1', 'ether2', 'ether3']:
+            if ok and interface.lower() in ['ether4', 'ether2', 'ether3']:
                 output = self.connection.send_command(f"ip address remove [find interface={interface}]", cmd_verify=False)
                 self.output_text.append(output)
             elif not ok:
                 self.output_text.append('Enter Interface correctly')
             else:
-                self.output_text.append('Enter a valid Interface (ether1, ether2, ether3)')
+                self.output_text.append('Enter a valid Interface (ether4, ether2, ether3)')
     def change_service_port(self):
         if self.connection is not None:
             self.clean_output()
